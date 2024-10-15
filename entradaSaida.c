@@ -12,7 +12,7 @@ void obterNomeArquivos(int argc, char* argv[], char** arquivoKit, char** arquivo
                 break;
             case 'k':
                 *arquivoKit = optarg;
-                break
+                break;
             default:
                 break;
         }
