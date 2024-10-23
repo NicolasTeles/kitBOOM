@@ -1,3 +1,6 @@
+#ifndef LOGICA_H
+#define LOGICA_H
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -24,3 +27,6 @@ Bomba* criabomba();
 
 void destroirBomba(Bomba* bomba);
 
+int testaArquivoComposicao(int numBombas, int areaBomba, int* areaTotalBombas);
+
+#endif
