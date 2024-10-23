@@ -19,14 +19,18 @@ typedef struct bomba{
 
 typedef struct kit{
     int numBombas;
-    Cor matrizPosicoes[6][6];
-    Bomba* vetorBombas;
+    Cor** matrizPosicoes;
+    Bomba** vetorBombas;
 }Kit;
 
-Bomba* criabomba();
+Bomba* criabomba(int inicioLinha, int inicioColuna, int fimLinha, int fimColuna, int tamanho, Cor cor);
+
+Kit* criaKit(int numBombas);
 
 void destroirBomba(Bomba* bomba);
 
 int testaArquivoComposicao(int numBombas, int areaBomba, int* areaTotalBombas);
+
+void posicionaBombas(Kit* kitBooom, int bombaAdicionada);
 
 #endif
