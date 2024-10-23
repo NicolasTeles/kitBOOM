@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "logica.h"
 #include <string.h>
+#include "logica.h"
+#include "entradaSaida.h"
 
 Bomba* criabomba(int inicioLinha, int inicioColuna, int fimLinha, int fimColuna, int tamanho, Cor cor){
     Bomba *bomba = (Bomba*)malloc(sizeof(Bomba));

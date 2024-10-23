@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <getopt.h>
 #include "logica.h"
+#include "entradaSaida.h"
 
 void substituiQuebraDeLinha(char* string, int n){
     if(string[n-1] == '\n')

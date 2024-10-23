@@ -58,6 +58,8 @@
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
   "files.associations": {
     "*.embeddedhtml": "html",
-    "getopt.h": "c"
+    "getopt.h": "c",
+    "stdio.h": "c",
+    "unistd.h": "c"
   }
 }
