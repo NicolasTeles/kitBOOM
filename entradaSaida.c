@@ -100,4 +100,10 @@ void lerArquivoConfiguracao(char* nomeArquivo, Kit* kitBOOM){
         posicionaBombas(kitBOOM, i);
     }
     fclose(fp);
+    if(testaArquivoConfiguracao(kitBOOM)){
+        printf("A configuração é válida!\n");
+    }else{
+        printf("A configuração é inválida!\n");
+    }
+    destroiKit(kitBOOM);
 }

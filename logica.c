@@ -38,8 +38,6 @@ int testaArquivoComposicao(int numBombas, int areaBomba, int* areaTotalBombas){
 }
 
 int testaArquivoConfiguracao(Kit* kitBoom){
-    if(kitBoom == NULL)
-        return -1;
     Bomba *bomba;
     for(int i = 0; i < kitBoom->numBombas; i++){
         bomba = kitBoom->vetorBombas[i];
