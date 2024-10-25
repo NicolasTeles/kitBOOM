@@ -33,4 +33,12 @@ int testaArquivoComposicao(int numBombas, int areaBomba, int* areaTotalBombas);
 
 void posicionaBombas(Kit* kitBooom, int bombaAdicionada);
 
+void destroiVetorBombas(Bomba** vetor, int n);
+
+void destroiMatriz(Cor** matriz);
+
+void destroiKit(Kit* kitBoom);
+
+int testaArquivoConfiguracao(Kit* kitBoom);
+
 #endif
