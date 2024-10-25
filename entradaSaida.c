@@ -2,10 +2,13 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <getopt.h>
+#include <string.h>
 #include "logica.h"
 #include "entradaSaida.h"
 
-void substituiQuebraDeLinha(char* string, int n){
+void substituiQuebraDeLinha(char* string){
+    int n = strlen(string);
+
     if(string[n-1] == '\n')
         string[n-1] = '\0';
 }
@@ -25,7 +28,7 @@ void obterNomeArquivos(int argc, char* argv[], char** arquivoKit, char** arquivo
                 exit(1);
         }
     }
-    return 0;
+    return;
 }
 
 Kit* lerArquivoComposicao(char* nomeArquivo){
@@ -37,25 +40,28 @@ Kit* lerArquivoComposicao(char* nomeArquivo){
 
     Kit* kitBoom = NULL;
     int qtdeTotalBombas = 0;
-    char string[6];
+    char string[10];
     int* areaTotalBombas = (int*)malloc(sizeof(int));
+    *areaTotalBombas = 0;
     int retornoComposicao;
     int qtdeBombas;
     int areaBomba;
-    fgets(string, 6, fp);
     while(!feof(fp)){
-        substituiQuebraDeLinha(string, 6);
+        fgets(string, 10, fp);
+        substituiQuebraDeLinha(string);
+        printf("%s\n", string);
         qtdeBombas = string[0] - '0';
         areaBomba = string[2] - '0';
+        printf("qtde %d area %d\n", qtdeBombas, areaBomba);
         qtdeTotalBombas += qtdeBombas;
         retornoComposicao = testaArquivoComposicao(qtdeBombas, areaBomba, areaTotalBombas);
         if(retornoComposicao == 1)
             break;
-        fgets(string, 6, fp);
     }
+    printf("%d\n", *areaTotalBombas);
     free(areaTotalBombas);
     fclose(fp);
-        
+    
     if(retornoComposicao == -1){
         fprintf(stderr, "Composição incorreta, está sobrando espaço no kitBOOM\n");
         exit(0);
@@ -77,23 +83,23 @@ void lerArquivoConfiguracao(char* nomeArquivo, Kit* kitBOOM){
         fprintf(stderr, "Erro na abertura do arquivo\n");
         exit(1);
     }
-    char string[12];
+    char string[15];
     int inicioLinha;
     int inicioColuna;
     int fimLinha;
     int fimColuna;
     int tamanho;
     Cor cor;
-    fgets(string, 12, fp);
     int i = 0;
     while(!feof){
-        substituiQuebraDeLinha(string, 12);
+        fgets(string, 15, fp);
+        substituiQuebraDeLinha(string);
         inicioLinha = string[0];
         inicioColuna = string[2];
         fimLinha = string[4];
         fimColuna = string[6];
         tamanho = string[8];
-        for(int j = 0; j < 12; j++)
+        for(int j = 0; j < 15; j++)
             cor.cor[j] = string[j+9];
         kitBOOM->vetorBombas[i] = criabomba(inicioLinha, inicioColuna, fimLinha, fimColuna, tamanho, cor);
         i++;

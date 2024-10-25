@@ -3,7 +3,7 @@
 
 #include "logica.h"
 
-void substituiQuebraDeLinha(char* string, int n);
+void substituiQuebraDeLinha(char* string);
 
 void obterNomeArquivos(int argc, char* argv[], char** arquivoKit, char** arquivoConfiguracao);
 
