@@ -9,8 +9,10 @@
 void substituiQuebraDeLinha(char* string){
     int n = strlen(string);
 
-    if(string[n-1] == '\n')
-        string[n-1] = '\0';
+    for(int j = 0; j < n; j++){
+        if(string[j] == '\n')
+            string[j] = '\0';
+        }
 }
 
 void obterNomeArquivos(int argc, char* argv[], char** arquivoKit, char** arquivoConfiguracao){
@@ -49,16 +51,13 @@ Kit* lerArquivoComposicao(char* nomeArquivo){
     while(!feof(fp)){
         fgets(string, 10, fp);
         substituiQuebraDeLinha(string);
-        printf("%s\n", string);
         qtdeBombas = string[0] - '0';
         areaBomba = string[2] - '0';
-        printf("qtde %d area %d\n", qtdeBombas, areaBomba);
         qtdeTotalBombas += qtdeBombas;
         retornoComposicao = testaArquivoComposicao(qtdeBombas, areaBomba, areaTotalBombas);
         if(retornoComposicao == 1)
             break;
     }
-    printf("%d\n", *areaTotalBombas);
     free(areaTotalBombas);
     fclose(fp);
     
@@ -91,21 +90,26 @@ void lerArquivoConfiguracao(char* nomeArquivo, Kit* kitBOOM){
     int tamanho;
     Cor cor;
     int i = 0;
-    while(!feof){
-        fgets(string, 15, fp);
+    while(!feof(fp)){
+        fgets(string, sizeof(string), fp);
         substituiQuebraDeLinha(string);
-        inicioLinha = string[0];
-        inicioColuna = string[2];
-        fimLinha = string[4];
-        fimColuna = string[6];
-        tamanho = string[8];
-        for(int j = 0; j < 15; j++)
-            cor.cor[j] = string[j+9];
+        inicioLinha = string[0] - '0';
+        inicioColuna = string[2] - '0';
+        fimLinha = string[4] - '0';
+        fimColuna = string[6] - '0';
+        tamanho = string[8] - '0';
+        cor.cor[0] = string[9];
+        cor.cor[1] = string[10];
+        cor.cor[2] = '\0';
+        printf("%s\n", string);
         kitBOOM->vetorBombas[i] = criabomba(inicioLinha, inicioColuna, fimLinha, fimColuna, tamanho, cor);
-        i++;
         posicionaBombas(kitBOOM, i);
+        i++;
     }
+    imprimir_matriz(kitBOOM->matrizPosicoes);
+    printf("oi\n");
     fclose(fp);
+    printf("oi\n");
     if(testaArquivoConfiguracao(kitBOOM)){
         printf("A configuração é válida!\n");
     }else{

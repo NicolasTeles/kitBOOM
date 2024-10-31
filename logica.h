@@ -29,6 +29,8 @@ Kit* criaKit(int numBombas);
 
 void destroirBomba(Bomba* bomba);
 
+void imprimir_matriz(Cor **matriz);
+
 int testaArquivoComposicao(int numBombas, int areaBomba, int* areaTotalBombas);
 
 void posicionaBombas(Kit* kitBooom, int bombaAdicionada);

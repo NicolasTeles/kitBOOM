@@ -23,7 +23,9 @@ void posicionaBombas(Kit* kitBooom, int bombaAdicionada){
     int fimColuna = bomba->fimColuna;
     for(int i = inicioLinha-1; i < fimLinha; i++){
         for(int j = inicioColuna-1; j < fimColuna; j++){
-            kitBooom->matrizPosicoes[i][j] = bomba->cor;
+            //printf("%d %d\n", i, j);
+            strcpy(kitBooom->matrizPosicoes[i][j].cor,bomba->cor.cor);
+            //printf("Chegou\n");
         }
     }
 }
@@ -49,12 +51,14 @@ int testaArquivoConfiguracao(Kit* kitBoom){
             if(indexColunaDepois <=5){
                 Cor corAdjacenteDepois = kitBoom->matrizPosicoes[j][indexColunaDepois];
                 if(strcmp(corConferida.cor, corAdjacenteDepois.cor) == 0){
+                    printf("%d %d %s\n", j, indexColunaDepois, corAdjacenteDepois.cor);
                     return 0;
                 }
             }
             if(indexColunaAntes >= 0){
                 Cor corAdjacenteAntes = kitBoom->matrizPosicoes[j][indexColunaAntes];
                 if(strcmp(corConferida.cor, corAdjacenteAntes.cor) == 0){
+                    printf("%d %d %s\n", j, indexColunaAntes, corAdjacenteAntes.cor);
                     return 0;
                 }
             }
@@ -67,18 +71,31 @@ int testaArquivoConfiguracao(Kit* kitBoom){
             if(indexLinhaDepois <=5){
                 Cor corAdjacenteDepois = kitBoom->matrizPosicoes[indexLinhaDepois][j];
                 if(strcmp(corConferida.cor, corAdjacenteDepois.cor) == 0){
+                    printf("%d %d %s\n", indexLinhaDepois, j, corAdjacenteDepois.cor);
                     return 0;
                 }
             }
             if(indexLinhaAntes >= 0){
                 Cor corAdjacenteAntes = kitBoom->matrizPosicoes[indexLinhaAntes][j];
                 if(strcmp(corConferida.cor, corAdjacenteAntes.cor) == 0){
+                    printf("%d %d %s\n", indexLinhaAntes, j, corAdjacenteAntes.cor);
                     return 0;
                 }
             }
         }
     }
     return 1;
+}
+
+void imprimir_matriz(Cor **matriz) {
+    int i, j;
+
+    for (i = 0; i < 6; i++) {
+        for (j = 0; j < 6; j++) {
+            printf("%s\t", matriz[i][j].cor);
+        }
+        printf("\n");
+    }
 }
 
 void destroirBomba(Bomba* bomba){
@@ -113,14 +130,13 @@ void destroiVetorBombas(Bomba** vetor, int n){
         return;
     for(int i = 0; i < n; i++){
         destroirBomba(vetor[i]);
-        free(vetor[i]);
     }
     free(vetor);
 }
 
 void destroiKit(Kit* kitBoom){
     if(kitBoom == NULL)
-        return
+        return;
     destroiMatriz(kitBoom->matrizPosicoes);
     destroiVetorBombas(kitBoom->vetorBombas, kitBoom->numBombas);
     free(kitBoom);

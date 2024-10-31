@@ -2,11 +2,16 @@
 #include "logica.h"
 #include "entradaSaida.h"
 
-void casoTesteComposicao(){
-    Kit* kitboom = lerArquivoComposicao("composicao.txt");
-    free(kitboom);
+Kit* casoTesteComposicao(){
+    Kit* kitboom = lerArquivoComposicao("composicao2.txt");
+    return kitboom;
+}
+
+void casoTesteConfiguracao(Kit* kitboom){
+    lerArquivoConfiguracao("configuracao2.txt", kitboom);
 }
 
 int main(int argc, char* argv[]){
-    casoTesteComposicao();
+    Kit* kitBOOM = casoTesteComposicao();
+    casoTesteConfiguracao(kitBOOM);
 }
