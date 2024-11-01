@@ -1,13 +1,10 @@
-run: clean main
-	./main
-
-main: logica.o entradaSaida.o
+compile: clean logica.o entradaSaida.o
 	gcc logica.o entradaSaida.o main.c -o main
 
-logica.o: logica.h logica.c
+logica.o: prototipos.h logica.c
 	gcc -c logica.c
 
-entradaSaida.o: entradaSaida.h entradaSaida.c
+entradaSaida.o: prototipos.h entradaSaida.c
 	gcc -c entradaSaida.c
 
 clean:

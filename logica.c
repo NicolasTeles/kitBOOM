@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "logica.h"
-#include "entradaSaida.h"
+#include "prototipos.h"
 
 Bomba* criabomba(int inicioLinha, int inicioColuna, int fimLinha, int fimColuna, int tamanho, Cor cor){
     Bomba *bomba = (Bomba*)malloc(sizeof(Bomba));
@@ -51,14 +50,12 @@ int testaArquivoConfiguracao(Kit* kitBoom){
             if(indexColunaDepois <=5){
                 Cor corAdjacenteDepois = kitBoom->matrizPosicoes[j][indexColunaDepois];
                 if(strcmp(corConferida.cor, corAdjacenteDepois.cor) == 0){
-                    printf("%d %d %s\n", j, indexColunaDepois, corAdjacenteDepois.cor);
                     return 0;
                 }
             }
             if(indexColunaAntes >= 0){
                 Cor corAdjacenteAntes = kitBoom->matrizPosicoes[j][indexColunaAntes];
                 if(strcmp(corConferida.cor, corAdjacenteAntes.cor) == 0){
-                    printf("%d %d %s\n", j, indexColunaAntes, corAdjacenteAntes.cor);
                     return 0;
                 }
             }
@@ -71,14 +68,12 @@ int testaArquivoConfiguracao(Kit* kitBoom){
             if(indexLinhaDepois <=5){
                 Cor corAdjacenteDepois = kitBoom->matrizPosicoes[indexLinhaDepois][j];
                 if(strcmp(corConferida.cor, corAdjacenteDepois.cor) == 0){
-                    printf("%d %d %s\n", indexLinhaDepois, j, corAdjacenteDepois.cor);
                     return 0;
                 }
             }
             if(indexLinhaAntes >= 0){
                 Cor corAdjacenteAntes = kitBoom->matrizPosicoes[indexLinhaAntes][j];
                 if(strcmp(corConferida.cor, corAdjacenteAntes.cor) == 0){
-                    printf("%d %d %s\n", indexLinhaAntes, j, corAdjacenteAntes.cor);
                     return 0;
                 }
             }

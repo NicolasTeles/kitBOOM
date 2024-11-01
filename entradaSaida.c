@@ -3,8 +3,7 @@
 #include <unistd.h>
 #include <getopt.h>
 #include <string.h>
-#include "logica.h"
-#include "entradaSaida.h"
+#include "prototipos.h"
 
 void substituiQuebraDeLinha(char* string){
     int n = strlen(string);
@@ -26,7 +25,7 @@ void obterNomeArquivos(int argc, char* argv[], char** arquivoKit, char** arquivo
                 *arquivoKit = optarg;
                 break;
             default:
-                fprintf(stderr, "Uso correto: %s -k <arquivo de composição> -c <arquivo de configuração>\n", argv[0]);
+                printf("Uso correto: %s -k <arquivo de composição> -c <arquivo de configuração>\n", argv[0]);
                 exit(1);
         }
     }
@@ -36,7 +35,7 @@ void obterNomeArquivos(int argc, char* argv[], char** arquivoKit, char** arquivo
 Kit* lerArquivoComposicao(char* nomeArquivo){
     FILE* fp = fopen(nomeArquivo, "r");
     if(fp == NULL){
-        fprintf(stderr, "Erro na abertura do arquivo\n");
+        printf("Erro na abertura do arquivo\n");
         exit(1);
     }
 
@@ -51,8 +50,10 @@ Kit* lerArquivoComposicao(char* nomeArquivo){
     while(!feof(fp)){
         fgets(string, 10, fp);
         substituiQuebraDeLinha(string);
-        qtdeBombas = string[0] - '0';
-        areaBomba = string[2] - '0';
+        char* token = strtok(string, " ");
+        qtdeBombas = atoi(token);
+        token = strtok(NULL, " ");
+        areaBomba = atoi(token);
         qtdeTotalBombas += qtdeBombas;
         retornoComposicao = testaArquivoComposicao(qtdeBombas, areaBomba, areaTotalBombas);
         if(retornoComposicao == 1)
@@ -62,11 +63,11 @@ Kit* lerArquivoComposicao(char* nomeArquivo){
     fclose(fp);
     
     if(retornoComposicao == -1){
-        fprintf(stderr, "Composição incorreta, está sobrando espaço no kitBOOM\n");
+        printf("Composição incorreta, está sobrando espaço no kitBOOM\n");
         exit(0);
     }
     if(retornoComposicao == 1){
-        fprintf(stderr, "Composição incorreta, não cabem todas as bombas no kitBOOM\n");
+        printf("Composição incorreta, não cabem todas as bombas no kitBOOM\n");
         exit(0);
     }
     if(retornoComposicao == 0){
@@ -79,7 +80,7 @@ Kit* lerArquivoComposicao(char* nomeArquivo){
 void lerArquivoConfiguracao(char* nomeArquivo, Kit* kitBOOM){
     FILE* fp = fopen(nomeArquivo, "r");
     if(fp == NULL){
-        fprintf(stderr, "Erro na abertura do arquivo\n");
+        printf("Erro na abertura do arquivo\n");
         exit(1);
     }
     char string[15];
@@ -93,23 +94,25 @@ void lerArquivoConfiguracao(char* nomeArquivo, Kit* kitBOOM){
     while(!feof(fp)){
         fgets(string, sizeof(string), fp);
         substituiQuebraDeLinha(string);
-        inicioLinha = string[0] - '0';
-        inicioColuna = string[2] - '0';
-        fimLinha = string[4] - '0';
-        fimColuna = string[6] - '0';
-        tamanho = string[8] - '0';
-        cor.cor[0] = string[9];
-        cor.cor[1] = string[10];
+        char* token = strtok(string, " ");
+        inicioLinha = atoi(token);
+        token = strtok(NULL, " ");
+        inicioColuna = atoi(token);
+        token = strtok(NULL, " ");
+        fimLinha = atoi(token);
+        token = strtok(NULL, " ");
+        fimColuna = atoi(token);
+        token = strtok(NULL, " ");
+        tamanho = atoi(token);
+        token++;
+        strcpy(cor.cor, token);
         cor.cor[2] = '\0';
-        printf("%s\n", string);
         kitBOOM->vetorBombas[i] = criabomba(inicioLinha, inicioColuna, fimLinha, fimColuna, tamanho, cor);
         posicionaBombas(kitBOOM, i);
         i++;
     }
-    imprimir_matriz(kitBOOM->matrizPosicoes);
-    printf("oi\n");
+    // imprimir_matriz(kitBOOM->matrizPosicoes);
     fclose(fp);
-    printf("oi\n");
     if(testaArquivoConfiguracao(kitBOOM)){
         printf("A configuração é válida!\n");
     }else{

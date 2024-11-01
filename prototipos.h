@@ -1,5 +1,5 @@
-#ifndef LOGICA_H
-#define LOGICA_H
+#ifndef PROTOTIPOS_H
+#define PROTOTIPOS_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -42,5 +42,13 @@ void destroiMatriz(Cor** matriz);
 void destroiKit(Kit* kitBoom);
 
 int testaArquivoConfiguracao(Kit* kitBoom);
+
+void substituiQuebraDeLinha(char* string);
+
+void obterNomeArquivos(int argc, char* argv[], char** arquivoKit, char** arquivoConfiguracao);
+
+Kit* lerArquivoComposicao(char* nomeArquivo);
+
+void lerArquivoConfiguracao(char* nomeArquivo, Kit* kitBOOM);
 
 #endif
