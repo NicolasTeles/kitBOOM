@@ -51,4 +51,8 @@ Kit* lerArquivoComposicao(char* nomeArquivo);
 
 void lerArquivoConfiguracao(char* nomeArquivo, Kit* kitBOOM);
 
+void destroirBomba(Bomba* bomba);
+
+Bomba** criaVetorBomba(int numeroBombas);
+
 #endif

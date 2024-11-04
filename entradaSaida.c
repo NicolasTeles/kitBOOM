@@ -90,9 +90,23 @@ void lerArquivoConfiguracao(char* nomeArquivo, Kit* kitBOOM){
     int fimColuna;
     int tamanho;
     Cor cor;
-    int i = 0;
+    int numBombas = 0;
+    int contador = 1;
     while(!feof(fp)){
         fgets(string, sizeof(string), fp);
+        if(strcmp(string, "\n") == 0){
+            printf("A configuração número %d é ", contador);
+            if(testaArquivoConfiguracao(kitBOOM)){
+                printf("válida!\n");
+            }else{
+                printf("inválida!\n");
+            }
+            contador++;
+            destroiVetorBombas(kitBOOM->vetorBombas, numBombas);
+            kitBOOM->vetorBombas = criaVetorBomba(kitBOOM->numBombas);
+            numBombas = 0;
+            continue;
+        }
         substituiQuebraDeLinha(string);
         char* token = strtok(string, " ");
         inicioLinha = atoi(token);
@@ -107,16 +121,18 @@ void lerArquivoConfiguracao(char* nomeArquivo, Kit* kitBOOM){
         token++;
         strcpy(cor.cor, token);
         cor.cor[2] = '\0';
-        kitBOOM->vetorBombas[i] = criabomba(inicioLinha, inicioColuna, fimLinha, fimColuna, tamanho, cor);
-        posicionaBombas(kitBOOM, i);
-        i++;
+        kitBOOM->vetorBombas[numBombas] = criabomba(inicioLinha, inicioColuna, fimLinha, fimColuna, tamanho, cor);
+        posicionaBombas(kitBOOM, numBombas);
+        numBombas++;
     }
+    printf("A configuração número %d é ", contador);
+        if(testaArquivoConfiguracao(kitBOOM)){
+            printf("válida!\n");
+        }else{
+            printf("inválida!\n");
+        }
     // imprimir_matriz(kitBOOM->matrizPosicoes);
     fclose(fp);
-    if(testaArquivoConfiguracao(kitBOOM)){
-        printf("A configuração é válida!\n");
-    }else{
-        printf("A configuração é inválida!\n");
-    }
+    
     destroiKit(kitBOOM);
 }

@@ -97,6 +97,10 @@ void destroirBomba(Bomba* bomba){
     free(bomba);
 }
 
+Bomba** criaVetorBomba(int numeroBombas){
+    return (Bomba**)malloc(numeroBombas * sizeof(Bomba*));
+}
+
 Kit* criaKit(int numBombas){
     Kit* kitBOOM = (Kit*)malloc(sizeof(Kit));
 
@@ -107,7 +111,7 @@ Kit* criaKit(int numBombas){
         kitBOOM->matrizPosicoes[i] = (Cor*)malloc(6 * sizeof(Cor));
     }
     
-    kitBOOM->vetorBombas = (Bomba**)malloc(numBombas * sizeof(Bomba*));
+    kitBOOM->vetorBombas = criaVetorBomba(numBombas);
 
     return kitBOOM;
 }
