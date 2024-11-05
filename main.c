@@ -48,6 +48,16 @@ int main(int argc, char* argv[]){
         usage.ru_utime.tv_sec, usage.ru_utime.tv_usec);
     printf("Tempo no modo de sistema rodando o processo: %ld.%06ld segundos\n",
         usage.ru_stime.tv_sec, usage.ru_stime.tv_usec);
+    
+    long total_sec = usage.ru_utime.tv_sec + usage.ru_stime.tv_sec, 
+        total_usec = usage.ru_utime.tv_usec + usage.ru_stime.tv_usec;
+    
+    if(total_usec > 1000000){
+        total_usec -= 1000000;
+        total_sec++;
+    }
+    printf("Tempo total do processo no processador: %ld.%06ld segundos\n",
+        total_sec, total_usec);
     printf("Memória máxima usada ao mesmo tempo: %ld KB\n", usage.ru_maxrss);
     
     long tempoRealMicro = abs(start.tv_usec - end.tv_usec);
@@ -59,7 +69,7 @@ int main(int argc, char* argv[]){
     long tempoRealSegundo = abs(start.tv_sec - end.tv_sec);
     if(diminuirSegundo)
         tempoRealSegundo--;
-    printf("Tempo passado na vida real: %ld.%06ld segundos\n============================\n",
+    printf("Tempo passado na vida real: %ld.%06ld segundos\n",
         tempoRealSegundo, tempoRealMicro);
 
     printf("====================================================================================\n");
