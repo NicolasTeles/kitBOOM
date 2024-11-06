@@ -14,15 +14,18 @@ void substituiQuebraDeLinha(char* string){
         }
 }
 
-void obterNomeArquivos(int argc, char* argv[], char** arquivoKit, char** arquivoConfiguracao){
+void obterNomeArquivos(int argc, char* argv[], char** arquivoKit, char** arquivoConfiguracao, int* n){
     int opt;
-    while((opt = getopt(argc, argv, "k:c:")) != -1){
+    while((opt = getopt(argc, argv, "k:c:n:")) != -1){
         switch (opt){
             case 'c':
                 *arquivoConfiguracao = optarg;
                 break;
             case 'k':
                 *arquivoKit = optarg;
+                break;
+            case 'n':
+                *n = atoi(optarg);
                 break;
             default:
                 printf("Uso correto: %s -k <arquivo de composição> -c <arquivo de configuração>\n", argv[0]);
@@ -126,13 +129,13 @@ void lerArquivoConfiguracao(char* nomeArquivo, Kit* kitBOOM){
         indiceBomba++;
     }
     printf("A configuração número %d é ", contador);
-        if(testaArquivoConfiguracao(kitBOOM)){
-            printf("válida!\n");
-        }else{
-            printf("inválida!\n");
-        }
+    if(testaArquivoConfiguracao(kitBOOM)){
+        printf("válida!\n");
+    }else{
+        printf("inválida!\n");
+    }
+    destroiVetorBombas(kitBOOM->vetorBombas, indiceBomba);
+    kitBOOM->vetorBombas = criaVetorBomba(kitBOOM->numBombas);
     // imprimir_matriz(kitBOOM->matrizPosicoes);
     fclose(fp);
-    
-    destroiKit(kitBOOM);
 }

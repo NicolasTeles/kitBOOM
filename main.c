@@ -63,6 +63,7 @@ void calculaTempoReal(struct timeval start, struct timeval end){
 }
 
 int main(int argc, char* argv[]){
+    int N = 1;
     struct timeval start, end;
     struct rusage usage;
 
@@ -70,10 +71,12 @@ int main(int argc, char* argv[]){
 
     char* arquivoComposicao = NULL;
     char* arquivoConfig = NULL;
-    obterNomeArquivos(argc, argv, &arquivoComposicao, &arquivoConfig);
+    obterNomeArquivos(argc, argv, &arquivoComposicao, &arquivoConfig, &N);
     Kit* kitboom = lerArquivoComposicao(arquivoComposicao);
-    lerArquivoConfiguracao(arquivoConfig, kitboom);
-
+    printf("n=%d\n", N);
+    for(int i = 0; i < N; i++)
+        lerArquivoConfiguracao(arquivoConfig, kitboom);
+    destroiKit(kitboom);
     gettimeofday(&end, NULL);
 
     printf("====================================================================================\n");

@@ -45,7 +45,7 @@ int testaArquivoConfiguracao(Kit* kitBoom);
 
 void substituiQuebraDeLinha(char* string);
 
-void obterNomeArquivos(int argc, char* argv[], char** arquivoKit, char** arquivoConfiguracao);
+void obterNomeArquivos(int argc, char* argv[], char** arquivoKit, char** arquivoConfiguracao, int* n);
 
 Kit* lerArquivoComposicao(char* nomeArquivo);
 
