@@ -28,22 +28,9 @@ void casoTeste2(){
     casoTesteConfiguracao(k, config);
 }
 
-int main(int argc, char* argv[]){
-    struct timeval start, end;
-    struct rusage usage;
-
-    gettimeofday(&start, NULL);
-
-    char* arquivoComposicao = NULL;
-    char* arquivoConfig = NULL;
-    obterNomeArquivos(argc, argv, &arquivoComposicao, &arquivoConfig);
-    Kit* kitboom = lerArquivoComposicao(arquivoComposicao);
-    lerArquivoConfiguracao(arquivoConfig, kitboom);
-
-    gettimeofday(&end, NULL);
-
+void calculaTempoProcessador(struct rusage usage){
     getrusage(RUSAGE_SELF, &usage);
-    printf("====================================================================================\n");
+    
     printf("\nTempo no modo de usuário rodando o processo: %ld.%06ld segundos\n", 
         usage.ru_utime.tv_sec, usage.ru_utime.tv_usec);
     printf("Tempo no modo de sistema rodando o processo: %ld.%06ld segundos\n",
@@ -59,7 +46,9 @@ int main(int argc, char* argv[]){
     printf("Tempo total do processo no processador: %ld.%06ld segundos\n",
         total_sec, total_usec);
     printf("Memória máxima usada ao mesmo tempo: %ld KB\n", usage.ru_maxrss);
-    
+}
+
+void calculaTempoReal(struct timeval start, struct timeval end){
     long tempoRealMicro = abs(start.tv_usec - end.tv_usec);
     int diminuirSegundo = 0;
     if(start.tv_usec > end.tv_usec){
@@ -71,6 +60,26 @@ int main(int argc, char* argv[]){
         tempoRealSegundo--;
     printf("Tempo passado na vida real: %ld.%06ld segundos\n",
         tempoRealSegundo, tempoRealMicro);
+}
+
+int main(int argc, char* argv[]){
+    struct timeval start, end;
+    struct rusage usage;
+
+    gettimeofday(&start, NULL);
+
+    char* arquivoComposicao = NULL;
+    char* arquivoConfig = NULL;
+    obterNomeArquivos(argc, argv, &arquivoComposicao, &arquivoConfig);
+    Kit* kitboom = lerArquivoComposicao(arquivoComposicao);
+    lerArquivoConfiguracao(arquivoConfig, kitboom);
+
+    gettimeofday(&end, NULL);
+
+    printf("====================================================================================\n");
+
+    calculaTempoProcessador(usage);
+    calculaTempoReal(start, end);
 
     printf("====================================================================================\n");
     return 0;
