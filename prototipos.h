@@ -33,7 +33,7 @@ void imprimir_matriz(Cor **matriz);
 
 int testaArquivoComposicao(int numBombas, int areaBomba, int* areaTotalBombas);
 
-void posicionaBombas(Kit* kitBooom, int bombaAdicionada);
+void posicionaBomba(Kit* kitBooom, int bombaAdicionada);
 
 void destroiVetorBombas(Bomba** vetor, int n);
 

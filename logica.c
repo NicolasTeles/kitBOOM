@@ -14,7 +14,7 @@ Bomba* criabomba(int inicioLinha, int inicioColuna, int fimLinha, int fimColuna,
     return bomba;
 }
 
-void posicionaBombas(Kit* kitBooom, int bombaAdicionada){
+void posicionaBomba(Kit* kitBooom, int bombaAdicionada){
     Bomba* bomba = kitBooom->vetorBombas[bombaAdicionada];
     int inicioLinha = bomba->inicioLinha;
     int inicioColuna = bomba->inicioColuna;
