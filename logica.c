@@ -23,7 +23,7 @@ void posicionaBomba(Kit* kitBooom, int bombaAdicionada){
     for(int i = inicioLinha-1; i < fimLinha; i++){
         for(int j = inicioColuna-1; j < fimColuna; j++){
             //printf("%d %d\n", i, j);
-            strcpy(kitBooom->matrizPosicoes[i][j].cor,bomba->cor.cor);
+            strcpy(kitBooom->matrizPosicoes[i][j].cor,bomba->cor.cor); //copiando a string da bomba na matriz do kit
             //printf("Chegou\n");
         }
     }
@@ -31,7 +31,7 @@ void posicionaBomba(Kit* kitBooom, int bombaAdicionada){
 
 int testaArquivoComposicao(int numBombas, int areaBomba, int* areaTotalBombas){
     *areaTotalBombas += numBombas*areaBomba;
-    if(*areaTotalBombas < 36)
+    if(*areaTotalBombas < 36) 
         return -1;
     if(*areaTotalBombas > 36)
         return 1;
@@ -47,15 +47,15 @@ int testaArquivoConfiguracao(Kit* kitBoom){
             int indexColunaDepois = bomba->fimColuna;
             
             Cor corConferida = kitBoom->matrizPosicoes[j][bomba->inicioColuna-1];
-            if(indexColunaDepois <=5){
+            if(indexColunaDepois <=5){ //verifica se a coluna posterior não ultrapassa os limites da matriz
                 Cor corAdjacenteDepois = kitBoom->matrizPosicoes[j][indexColunaDepois];
-                if(strcmp(corConferida.cor, corAdjacenteDepois.cor) == 0){
+                if(strcmp(corConferida.cor, corAdjacenteDepois.cor) == 0){ //verifica se possuem a mesma cor, se sim retorna 0 de erro
                     return 0;
                 }
             }
-            if(indexColunaAntes >= 0){
+            if(indexColunaAntes >= 0){//verifica se a coluna anterior busca indice fora da matriz
                 Cor corAdjacenteAntes = kitBoom->matrizPosicoes[j][indexColunaAntes];
-                if(strcmp(corConferida.cor, corAdjacenteAntes.cor) == 0){
+                if(strcmp(corConferida.cor, corAdjacenteAntes.cor) == 0){//verifica se possuem a mesma cor, se sim retorna 0 de erro
                     return 0;
                 }
             }
@@ -65,15 +65,15 @@ int testaArquivoConfiguracao(Kit* kitBoom){
             int indexLinhaDepois = bomba->fimLinha;
             
             Cor corConferida = kitBoom->matrizPosicoes[bomba->inicioLinha-1][j];
-            if(indexLinhaDepois <=5){
+            if(indexLinhaDepois <=5){ //verifica se a linha busca indice de fora da matriz 
                 Cor corAdjacenteDepois = kitBoom->matrizPosicoes[indexLinhaDepois][j];
-                if(strcmp(corConferida.cor, corAdjacenteDepois.cor) == 0){
+                if(strcmp(corConferida.cor, corAdjacenteDepois.cor) == 0){ //verifica se possuem a mesma cor, se sim retorna 0 de erro
                     return 0;
                 }
             }
-            if(indexLinhaAntes >= 0){
+            if(indexLinhaAntes >= 0){ //verifica se a linha busca indice de fora da matriz 
                 Cor corAdjacenteAntes = kitBoom->matrizPosicoes[indexLinhaAntes][j];
-                if(strcmp(corConferida.cor, corAdjacenteAntes.cor) == 0){
+                if(strcmp(corConferida.cor, corAdjacenteAntes.cor) == 0){//verifica se possuem a mesma cor, se sim retorna 0 de erro
                     return 0;
                 }
             }

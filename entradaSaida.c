@@ -5,6 +5,7 @@
 #include <string.h>
 #include "prototipos.h"
 
+//função para substituir o \n para um \0 nas linhas do arquivo
 void substituiQuebraDeLinha(char* string){
     int n = strlen(string);
 
@@ -53,9 +54,9 @@ Kit* lerArquivoComposicao(char* nomeArquivo){
     while(!feof(fp)){
         fgets(string, 10, fp);
         substituiQuebraDeLinha(string);
-        char* token = strtok(string, " ");
+        char* token = strtok(string, " "); //separa a linha em strings diferentes ao achar um espaço
         qtdeBombas = atoi(token);
-        token = strtok(NULL, " ");
+        token = strtok(NULL, " "); //muda para a outra string
         areaBomba = atoi(token);
         qtdeTotalBombas += qtdeBombas;
         retornoComposicao = testaArquivoComposicao(qtdeBombas, areaBomba, areaTotalBombas);
@@ -93,7 +94,7 @@ void lerArquivoConfiguracao(char* nomeArquivo, Kit* kitBOOM){
     int fimColuna;
     int tamanho;
     Cor cor;
-    int indiceBomba = 0;
+    int indiceBomba = 0; //qual a bomba que está sendo lida e criada e depois posicionada
     int contador = 1;
     while(!feof(fp)){
         fgets(string, sizeof(string), fp);
@@ -111,9 +112,9 @@ void lerArquivoConfiguracao(char* nomeArquivo, Kit* kitBOOM){
             continue;
         }
         substituiQuebraDeLinha(string);
-        char* token = strtok(string, " ");
+        char* token = strtok(string, " ");  //separa a linha em strings diferentes ao achar um espaço
         inicioLinha = atoi(token);
-        token = strtok(NULL, " ");
+        token = strtok(NULL, " "); //muda para a outra string
         inicioColuna = atoi(token);
         token = strtok(NULL, " ");
         fimLinha = atoi(token);
@@ -123,7 +124,7 @@ void lerArquivoConfiguracao(char* nomeArquivo, Kit* kitBOOM){
         tamanho = atoi(token);
         token++;
         strcpy(cor.cor, token);
-        cor.cor[2] = '\0';
+        cor.cor[2] = '\0'; //garantir o que na string cor tenha o \0 na última posição
         kitBOOM->vetorBombas[indiceBomba] = criabomba(inicioLinha, inicioColuna, fimLinha, fimColuna, tamanho, cor);
         posicionaBomba(kitBOOM, indiceBomba);
         indiceBomba++;
@@ -134,8 +135,8 @@ void lerArquivoConfiguracao(char* nomeArquivo, Kit* kitBOOM){
     }else{
         printf("inválida!\n");
     }
-    destroiVetorBombas(kitBOOM->vetorBombas, indiceBomba);
-    kitBOOM->vetorBombas = criaVetorBomba(kitBOOM->numBombas);
+    //destroiVetorBombas(kitBOOM->vetorBombas, indiceBomba);
+    //kitBOOM->vetorBombas = criaVetorBomba(kitBOOM->numBombas);
     // imprimir_matriz(kitBOOM->matrizPosicoes);
     fclose(fp);
 }
