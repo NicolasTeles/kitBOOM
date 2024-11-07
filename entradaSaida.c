@@ -99,11 +99,11 @@ void lerArquivoConfiguracao(char* nomeArquivo, Kit* kitBOOM){
     while(!feof(fp)){
         fgets(string, sizeof(string), fp);
         if(strcmp(string, "\r\n") == 0 || strcmp(string, "\n") == 0){
-            printf("A configuração número %d é ", contador);
+            //printf("A configuração número %d é ", contador);
             if(testaArquivoConfiguracao(kitBOOM)){
-                printf("válida!\n");
+                //printf("válida!\n");
             }else{
-                printf("inválida!\n");
+                //printf("inválida!\n");
             }
             contador++;
             destroiVetorBombas(kitBOOM->vetorBombas, indiceBomba);
@@ -129,11 +129,11 @@ void lerArquivoConfiguracao(char* nomeArquivo, Kit* kitBOOM){
         posicionaBomba(kitBOOM, indiceBomba);
         indiceBomba++;
     }
-    printf("A configuração número %d é ", contador);
+    //printf("A configuração número %d é ", contador);
     if(testaArquivoConfiguracao(kitBOOM)){
-        printf("válida!\n");
+        //printf("válida!\n");
     }else{
-        printf("inválida!\n");
+        //printf("inválida!\n");
     }
     //destroiVetorBombas(kitBOOM->vetorBombas, indiceBomba);
     //kitBOOM->vetorBombas = criaVetorBomba(kitBOOM->numBombas);
