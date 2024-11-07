@@ -77,7 +77,7 @@ int main(int argc, char* argv[]){
         obterNomeArquivos(argc, argv, &arquivoComposicao, &arquivoConfig, &N);
         Kit* kitboom = lerArquivoComposicao(arquivoComposicao);
         printf("n=%d\n", j);
-        for(int i = 0; i < j; i++) // loop para rodar o arquivo várias vezes com entrada grande
+        for(int i = 0; i < j; i++) // loop para rodar o arquivo várias vezes com entrada de grandes tamanhos
             lerArquivoConfiguracao(arquivoConfig, kitboom);
         destroiKit(kitboom);
         gettimeofday(&end, NULL);
