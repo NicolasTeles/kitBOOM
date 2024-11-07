@@ -67,27 +67,22 @@ int main(int argc, char* argv[]){
     struct timeval start, end;
     struct rusage usage;
 
-
     char* arquivoComposicao = NULL;
     char* arquivoConfig = NULL;
-    for(int j = 1; j <= 1001; j += 50){
-        gettimeofday(&start, NULL);
-        //arquivoComposicao = NULL;
-        //arquivoConfig = NULL;
-        obterNomeArquivos(argc, argv, &arquivoComposicao, &arquivoConfig, &N);
-        Kit* kitboom = lerArquivoComposicao(arquivoComposicao);
-        printf("n=%d\n", j);
-        for(int i = 0; i < j; i++) // loop para rodar o arquivo várias vezes com entrada de grandes tamanhos
-            lerArquivoConfiguracao(arquivoConfig, kitboom);
-        destroiKit(kitboom);
-        gettimeofday(&end, NULL);
+    gettimeofday(&start, NULL);
+    obterNomeArquivos(argc, argv, &arquivoComposicao, &arquivoConfig, &N);
+    Kit* kitboom = lerArquivoComposicao(arquivoComposicao);
+    printf("n=%d\n", N);
+    for(int i = 0; i < N; i++) // loop para rodar o arquivo várias vezes com entrada de grandes tamanhos
+        lerArquivoConfiguracao(arquivoConfig, kitboom);
+    destroiKit(kitboom);
+    gettimeofday(&end, NULL);
 
-        printf("====================================================================================\n");
+    printf("====================================================================================\n");
 
-        calculaTempoProcessador(usage);
-        calculaTempoReal(start, end);
+    calculaTempoProcessador(usage);
+    calculaTempoReal(start, end);
 
-        printf("====================================================================================\n");
-    }
+    printf("====================================================================================\n");
     return 0;
 }
