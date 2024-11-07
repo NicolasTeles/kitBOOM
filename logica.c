@@ -93,7 +93,7 @@ void imprimir_matriz(Cor **matriz) {
     }
 }
 
-void destroirBomba(Bomba* bomba){
+void destroiBomba(Bomba* bomba){
     if(bomba == NULL)
         return;
     free(bomba);
@@ -127,10 +127,10 @@ void destroiMatriz(Cor** matriz){
 }
 
 void destroiVetorBombas(Bomba** vetor, int n){
-    if(vetor == NULL || *vetor ==  NULL)
+    if(vetor == NULL)
         return;
     for(int i = 0; i < n; i++){
-        destroirBomba(vetor[i]);
+        destroiBomba(vetor[i]);
     }
     free(vetor);
 }

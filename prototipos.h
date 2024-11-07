@@ -27,7 +27,7 @@ Bomba* criabomba(int inicioLinha, int inicioColuna, int fimLinha, int fimColuna,
 
 Kit* criaKit(int numBombas);
 
-void destroirBomba(Bomba* bomba);
+void destroiBomba(Bomba* bomba);
 
 void imprimir_matriz(Cor **matriz);
 
